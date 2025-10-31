@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
-import Checkbox from '../../shared/Checkbox';
+import { useState } from 'react'
+import { FeaturesProps } from '../../../types'
+import Checkbox from '../../shared/Checkbox'
 
-function Features({ features, selectedFeatures = [], onFeatureChange }) {
-  const [currentFeatures, setCurrentFeatures] = useState(selectedFeatures)
+interface Props extends FeaturesProps {
+  selectedFeatures?: string[]
+}
 
-  const handleFeatureChange = (feature) => {
+function Features({ features, selectedFeatures = [], onFeatureChange }: Props) {
+  const [currentFeatures, setCurrentFeatures] =
+    useState<string[]>(selectedFeatures)
+
+  const handleFeatureChange = (feature: string) => {
     const updatedFeatures = currentFeatures.includes(feature)
       ? currentFeatures.filter((pref) => pref !== feature)
-      : [...currentFeatures, feature];
+      : [...currentFeatures, feature]
 
-    setCurrentFeatures(updatedFeatures);
-    onFeatureChange(updatedFeatures);
-  };
+    setCurrentFeatures(updatedFeatures)
+    onFeatureChange(updatedFeatures)
+  }
 
   return (
     <div className="mb-4">
@@ -31,7 +37,7 @@ function Features({ features, selectedFeatures = [], onFeatureChange }) {
         ))}
       </ul>
     </div>
-  );
+  )
 }
 
-export default Features;
+export default Features

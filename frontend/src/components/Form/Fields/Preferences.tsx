@@ -1,23 +1,27 @@
-// Preferences.js
+import { useState } from 'react'
+import { PreferencesProps } from '../../../types'
+import Checkbox from '../../shared/Checkbox'
 
-import React, { useState } from 'react';
-import Checkbox from '../../shared/Checkbox';
+interface Props extends PreferencesProps {
+  selectedPreferences?: string[]
+}
 
 function Preferences({
   preferences,
   selectedPreferences = [],
   onPreferenceChange,
-}) {
-  const [currentPreferences, setCurrentPreferences] = useState(selectedPreferences)
+}: Props) {
+  const [currentPreferences, setCurrentPreferences] =
+    useState<string[]>(selectedPreferences)
 
-  const handlePreferenceChange = (preference) => {
+  const handlePreferenceChange = (preference: string) => {
     const updatedPreferences = currentPreferences.includes(preference)
       ? currentPreferences.filter((pref) => pref !== preference)
-      : [...currentPreferences, preference];
+      : [...currentPreferences, preference]
 
-    setCurrentPreferences(updatedPreferences);
-    onPreferenceChange(updatedPreferences);
-  };
+    setCurrentPreferences(updatedPreferences)
+    onPreferenceChange(updatedPreferences)
+  }
 
   return (
     <div className="mb-4">
@@ -37,7 +41,7 @@ function Preferences({
         ))}
       </ul>
     </div>
-  );
+  )
 }
 
-export default Preferences;
+export default Preferences

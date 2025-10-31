@@ -59,6 +59,6 @@ const mockProducts = [
       'Integração de funcionalidades preditivas nos produtos RD Station',
     ],
   },
-];
+]
 
-export default mockProducts;
+export default mockProducts

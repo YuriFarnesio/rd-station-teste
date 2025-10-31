@@ -1,6 +1,6 @@
-import React from 'react';
+import { RecommendationListProps } from '../../types'
 
-function RecommendationList({ recommendations }) {
+function RecommendationList({ recommendations }: RecommendationListProps) {
   return (
     <div>
       <h2 className="text-lg font-bold mb-4">Lista de Recomendações:</h2>
@@ -15,7 +15,7 @@ function RecommendationList({ recommendations }) {
         ))}
       </ul>
     </div>
-  );
+  )
 }
 
-export default RecommendationList;
+export default RecommendationList
