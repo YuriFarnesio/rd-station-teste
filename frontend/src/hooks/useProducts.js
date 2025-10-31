@@ -16,14 +16,10 @@ const useProducts = () => {
         setProducts(products);
 
         products.forEach((product) => {
-          const productPreferences = product.preferences
-            .sort(() => Math.random() - 0.5)
-            .slice(0, 2);
+          const productPreferences = product.preferences;
           allPreferences.push(...productPreferences);
 
-          const productFeatures = product.features
-            .sort(() => Math.random() - 0.5)
-            .slice(0, 2);
+          const productFeatures = product.features;
           allFeatures.push(...productFeatures);
         });
 
