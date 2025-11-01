@@ -28,7 +28,7 @@ export function CheckboxGroup({
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-2 sm:gap-3">
       {options.map((option) => {
         const isSelected = value.includes(option.value)
 
@@ -44,19 +44,19 @@ export function CheckboxGroup({
           >
             <div
               className={cn(
-                'flex items-center gap-3 bg-white rounded-md p-4 transition duration-300',
+                'flex items-center gap-2 sm:gap-3 bg-white rounded-md p-3 sm:p-4 transition duration-300',
                 isSelected && 'bg-blue-50',
               )}
             >
               <div
                 className={cn(
-                  'size-5 flex items-center justify-center border-2 border-gray-900 rounded-sm transition duration-300',
+                  'size-4 sm:size-5 flex items-center justify-center border-2 border-gray-900 rounded-sm transition duration-300 shrink-0',
                   isSelected && 'border-blue-500',
                 )}
               >
                 <div
                   className={cn(
-                    'size-2 scale-0 bg-blue-500 rounded-xs transition',
+                    'size-1.5 sm:size-2 scale-0 bg-blue-500 rounded-xs transition',
                     isSelected && 'scale-100',
                   )}
                 />
@@ -68,16 +68,17 @@ export function CheckboxGroup({
                 value={option.value}
                 checked={isSelected}
                 className="sr-only"
+                readOnly
               />
 
-              <span className="flex-1 text-sm text-gray-900 font-medium">
+              <span className="flex-1 text-xs sm:text-sm text-gray-900 font-medium leading-tight min-w-0">
                 {option.label}
               </span>
 
               <CheckIcon
                 weight="bold"
                 className={cn(
-                  'size-4 text-purple-500 opacity-0',
+                  'size-3 sm:size-4 text-purple-500 opacity-0 shrink-0',
                   isSelected && 'opacity-100',
                 )}
               />

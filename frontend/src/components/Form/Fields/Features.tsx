@@ -19,13 +19,13 @@ export function Features() {
     <div className="flex flex-col gap-2">
       <div>
         <div className="flex items-center gap-2">
-          <span className="text-xl">⚙️</span>
-          <h3 className="text-lg text-gray-900 font-semibold leading-tight">
+          <span className="text-lg sm:text-xl">⚙️</span>
+          <h3 className="text-base sm:text-lg text-gray-900 font-semibold leading-tight">
             Funcionalidades
           </h3>
         </div>
 
-        <p className="text-sm text-gray-600">
+        <p className="text-xs sm:text-sm text-gray-600">
           Selecione as funcionalidades que você gostaria de ter:
         </p>
       </div>
