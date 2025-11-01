@@ -3,7 +3,11 @@ import { api } from '@/lib/axios'
 export interface Product {
   id: number
   name: string
-  category?: string
+  category:
+    | 'Vendas'
+    | 'Marketing'
+    | 'Omnichannel'
+    | 'Uso de Inteligência Artificial'
   preferences: string[]
   features: string[]
 }

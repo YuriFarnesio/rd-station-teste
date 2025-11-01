@@ -4,7 +4,7 @@ import type { Product } from './product.service'
 export function getRecommendations(
   data: RecommendationsForm,
   products: Product[] = [],
-): string[] {
+): Product[] {
   const { preferences, features, recommendationType } = data
 
   if (products.length === 0) return []
@@ -30,7 +30,7 @@ export function getRecommendations(
   const multiple = scored
     .filter((s) => s.score > 0)
     .sort((a, b) => b.score - a.score || b.product.id - a.product.id)
-    .map((s) => s.product.name)
+    .map((s) => s.product)
 
   if (!multiple.length) return []
 

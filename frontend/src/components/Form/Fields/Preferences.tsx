@@ -16,22 +16,32 @@ export function Preferences() {
   }))
 
   return (
-    <div className="mb-4">
-      <h2 className="text-lg font-bold mb-2">Preferências:</h2>
-      <ul>
-        <Controller
-          name="preferences"
-          control={control}
-          render={({ field: { name, value, onChange } }) => (
-            <CheckboxGroup
-              name={name}
-              value={value}
-              options={preferenceOptions}
-              onChange={onChange}
-            />
-          )}
-        />
-      </ul>
+    <div className="flex flex-col gap-2">
+      <div>
+        <div className="flex items-end gap-2">
+          <span className="text-xl">💼</span>
+          <h3 className="text-lg text-gray-900 font-semibold leading-tight">
+            Preferências
+          </h3>
+        </div>
+
+        <p className="text-sm text-gray-600">
+          Que tipo de recursos são mais importantes para você?
+        </p>
+      </div>
+
+      <Controller
+        name="preferences"
+        control={control}
+        render={({ field: { name, value, onChange } }) => (
+          <CheckboxGroup
+            name={name}
+            value={value}
+            options={preferenceOptions}
+            onChange={onChange}
+          />
+        )}
+      />
     </div>
   )
 }

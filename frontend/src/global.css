@@ -16,4 +16,42 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+
+  .list-green-marker li::marker {
+    color: #34D399;
+  }
+
+  .list-blue-marker li::marker {
+    color: #3B82F6;
+  }
 }

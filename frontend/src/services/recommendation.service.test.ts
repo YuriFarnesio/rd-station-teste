@@ -13,7 +13,7 @@ describe('recommendationService', () => {
     const recommendations = getRecommendations(formData, mockProducts)
 
     expect(recommendations).toHaveLength(1)
-    expect(recommendations[0]).toBe('RD Conversas')
+    expect(recommendations[0].name).toBe('RD Conversas')
   })
 
   test('Retorna recomendações corretas para MultipleProducts com base nas preferências selecionadas', () => {
@@ -33,7 +33,7 @@ describe('recommendationService', () => {
     const recommendations = getRecommendations(formData, mockProducts)
 
     expect(recommendations).toHaveLength(2)
-    expect(recommendations.map((product) => product)).toEqual([
+    expect(recommendations.map((product) => product.name)).toEqual([
       'RD Station CRM',
       'RD Station Marketing',
     ])
@@ -55,7 +55,7 @@ describe('recommendationService', () => {
     const recommendations = getRecommendations(formData, mockProducts)
 
     expect(recommendations).toHaveLength(1)
-    expect(recommendations[0]).toBe('RD Station Marketing')
+    expect(recommendations[0].name).toBe('RD Station Marketing')
   })
 
   test('Retorna o último match em caso de empate para SingleProduct', () => {
@@ -68,6 +68,6 @@ describe('recommendationService', () => {
     const recommendations = getRecommendations(formData, mockProducts)
 
     expect(recommendations).toHaveLength(1)
-    expect(recommendations[0]).toBe('RD Conversas')
+    expect(recommendations[0].name).toBe('RD Conversas')
   })
 })

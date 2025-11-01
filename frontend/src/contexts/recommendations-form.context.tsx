@@ -14,9 +14,9 @@ interface RecommendationsFormContextType {
   products: Product[]
   preferences: string[]
   features: string[]
-  recommendations: string[]
+  recommendations: Product[]
   isLoadingProducts: boolean
-  setRecommendations: Dispatch<SetStateAction<string[]>>
+  setRecommendations: Dispatch<SetStateAction<Product[]>>
 }
 
 const RecommendationsFormContext = createContext(

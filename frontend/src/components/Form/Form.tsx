@@ -9,7 +9,6 @@ import {
 import { getRecommendations } from '@/services/recommendation.service'
 
 import { Features, Preferences, RecommendationType } from './Fields'
-import { SubmitButton } from './SubmitButton'
 
 export function Form() {
   const { products, setRecommendations } = useRecommendationsFormContext()
@@ -31,13 +30,39 @@ export function Form() {
   return (
     <FormProvider {...formMethods}>
       <form
-        className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md"
         onSubmit={formMethods.handleSubmit(onSubmit)}
+        className="flex flex-col gap-6 bg-white border border-gray-200 rounded-xl shadow-sm p-6"
       >
-        <Preferences />
-        <Features />
-        <RecommendationType />
-        <SubmitButton text="Obter recomendação" />
+        <div className="flex flex-col gap-1">
+          <div className="flex items-end gap-2">
+            <span className="text-2xl">📋</span>
+            <h3 className="text-xl text-gray-900 font-semibold">
+              Configure suas preferências
+            </h3>
+          </div>
+
+          <p className="text-sm text-gray-600">
+            Selecione as opções que melhor descrevem suas necessidades
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-6">
+          <Preferences />
+          <Features />
+          <RecommendationType />
+        </div>
+
+        <hr className="border-gray-200 -mb-2" />
+
+        <button
+          type="submit"
+          className="w-full hover:scale-102 active:scale-95 bg-linear-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 cursor-pointer py-3 px-6 transition-all duration-300"
+        >
+          <span className="flex items-center justify-center gap-2">
+            <span>Obter recomendação</span>
+            <span className="text-lg">🚀</span>
+          </span>
+        </button>
       </form>
     </FormProvider>
   )

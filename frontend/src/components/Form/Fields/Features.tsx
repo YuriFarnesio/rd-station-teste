@@ -16,22 +16,32 @@ export function Features() {
   }))
 
   return (
-    <div className="mb-4">
-      <h2 className="text-lg font-bold mb-2">Funcionalidades:</h2>
-      <ul>
-        <Controller
-          name="features"
-          control={control}
-          render={({ field: { name, value, onChange } }) => (
-            <CheckboxGroup
-              name={name}
-              value={value}
-              options={featureOptions}
-              onChange={onChange}
-            />
-          )}
-        />
-      </ul>
+    <div className="flex flex-col gap-2">
+      <div>
+        <div className="flex items-center gap-2">
+          <span className="text-xl">⚙️</span>
+          <h3 className="text-lg text-gray-900 font-semibold leading-tight">
+            Funcionalidades
+          </h3>
+        </div>
+
+        <p className="text-sm text-gray-600">
+          Selecione as funcionalidades que você gostaria de ter:
+        </p>
+      </div>
+
+      <Controller
+        name="features"
+        control={control}
+        render={({ field: { name, value, onChange } }) => (
+          <CheckboxGroup
+            name={name}
+            value={value}
+            options={featureOptions}
+            onChange={onChange}
+          />
+        )}
+      />
     </div>
   )
 }

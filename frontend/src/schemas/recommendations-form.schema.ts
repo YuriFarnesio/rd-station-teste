@@ -1,8 +1,8 @@
 import z from 'zod'
 
 export const recommendationsFormSchema = z.object({
-  preferences: z.array(z.string()).min(1, 'Select at least one preference'),
-  features: z.array(z.string()).min(1, 'Select at least one feature'),
+  preferences: z.array(z.string()),
+  features: z.array(z.string()),
   recommendationType: z.enum(['SingleProduct', 'MultipleProducts']),
 })
 
