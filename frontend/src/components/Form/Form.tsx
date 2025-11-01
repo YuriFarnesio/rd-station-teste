@@ -1,56 +1,44 @@
-import React from 'react'
-import useForm from '../../hooks/useForm'
-import useProducts from '../../hooks/useProducts'
-import useRecommendations from '../../hooks/useRecommendations'
-import { FormData, FormProps } from '../../types'
-import { Features, Preferences, RecommendationType } from './Fields'
-import SubmitButton from './SubmitButton'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { FormProvider, useForm } from 'react-hook-form'
 
-function Form({ onRecommendationsChange }: FormProps) {
-  const { preferences, features, products } = useProducts()
-  const { formData, handleChange } = useForm<FormData>({
-    selectedPreferences: [],
-    selectedFeatures: [],
-    selectedRecommendationType: '',
+import { useRecommendationsFormContext } from '@/contexts/recommendations-form.context'
+import {
+  recommendationsFormSchema,
+  type RecommendationsForm,
+} from '@/schemas/recommendations-form.schema'
+import { getRecommendations } from '@/services/recommendation.service'
+
+import { Features, Preferences, RecommendationType } from './Fields'
+import { SubmitButton } from './SubmitButton'
+
+export function Form() {
+  const { products, setRecommendations } = useRecommendationsFormContext()
+
+  const formMethods = useForm<RecommendationsForm>({
+    resolver: zodResolver(recommendationsFormSchema),
+    defaultValues: {
+      preferences: [],
+      features: [],
+      recommendationType: 'SingleProduct',
+    },
   })
 
-  const { getRecommendations } = useRecommendations(products)
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const dataRecommendations = getRecommendations(formData)
-
-    // Atualiza a lista de recomendações no componente pai (App) quando fornecido
-    if (onRecommendationsChange) {
-      onRecommendationsChange(dataRecommendations)
-    }
+  const onSubmit = (data: RecommendationsForm) => {
+    const recommendedProducts = getRecommendations(data, products)
+    setRecommendations(recommendedProducts)
   }
 
   return (
-    <form
-      className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md"
-      onSubmit={handleSubmit}
-    >
-      <Preferences
-        preferences={preferences}
-        onPreferenceChange={(selected) =>
-          handleChange('selectedPreferences', selected)
-        }
-      />
-      <Features
-        features={features}
-        onFeatureChange={(selected) =>
-          handleChange('selectedFeatures', selected)
-        }
-      />
-      <RecommendationType
-        onRecommendationTypeChange={(selected) =>
-          handleChange('selectedRecommendationType', selected)
-        }
-      />
-      <SubmitButton text="Obter recomendação" />
-    </form>
+    <FormProvider {...formMethods}>
+      <form
+        className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md"
+        onSubmit={formMethods.handleSubmit(onSubmit)}
+      >
+        <Preferences />
+        <Features />
+        <RecommendationType />
+        <SubmitButton text="Obter recomendação" />
+      </form>
+    </FormProvider>
   )
 }
-
-export default Form

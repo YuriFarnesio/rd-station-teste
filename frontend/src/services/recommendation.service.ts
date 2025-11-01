@@ -1,30 +1,21 @@
-import { FormData, Product } from '../types'
-
-export type { Product } from '../types'
+import type { RecommendationsForm } from '@/schemas/recommendations-form.schema'
+import type { Product } from './product.service'
 
 export function getRecommendations(
-  formData: FormData = {
-    selectedPreferences: [],
-    selectedFeatures: [],
-    selectedRecommendationType: '',
-  },
+  data: RecommendationsForm,
   products: Product[] = [],
-): Product[] {
-  const {
-    selectedPreferences = [],
-    selectedFeatures = [],
-    selectedRecommendationType = '',
-  } = formData
+): string[] {
+  const { preferences, features, recommendationType } = data
 
   if (products.length === 0) return []
 
   const scored = products.map((product) => {
     const preferenceMatches = product.preferences.filter((p) =>
-      selectedPreferences.includes(p),
+      preferences.includes(p),
     ).length
 
     const featureMatches = product.features.filter((f) =>
-      selectedFeatures.includes(f),
+      features.includes(f),
     ).length
 
     const score = preferenceMatches + featureMatches
@@ -39,12 +30,10 @@ export function getRecommendations(
   const multiple = scored
     .filter((s) => s.score > 0)
     .sort((a, b) => b.score - a.score || b.product.id - a.product.id)
-    .map((s) => s.product)
+    .map((s) => s.product.name)
 
   if (!multiple.length) return []
 
-  const isSingle = selectedRecommendationType === 'SingleProduct'
+  const isSingle = recommendationType === 'SingleProduct'
   return isSingle ? [multiple[0]!] : multiple
 }
-
-export default { getRecommendations }

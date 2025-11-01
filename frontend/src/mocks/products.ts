@@ -1,4 +1,4 @@
-const mockProducts = [
+export const mockProducts = [
   {
     id: 1,
     name: 'RD Station CRM',
@@ -60,5 +60,3 @@ const mockProducts = [
     ],
   },
 ]
-
-export default mockProducts

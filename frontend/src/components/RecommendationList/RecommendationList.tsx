@@ -1,21 +1,23 @@
-import { RecommendationListProps } from '../../types'
+import { useRecommendationsFormContext } from '@/contexts/recommendations-form.context'
 
-function RecommendationList({ recommendations }: RecommendationListProps) {
+export function RecommendationList() {
+  const { recommendations } = useRecommendationsFormContext()
+
   return (
     <div>
       <h2 className="text-lg font-bold mb-4">Lista de Recomendações:</h2>
 
-      {recommendations.length === 0 && <p>Nenhuma recomendação encontrada.</p>}
-
-      <ul>
-        {recommendations.map((recommendation, index) => (
-          <li key={index} className="mb-2">
-            {recommendation.name}
-          </li>
-        ))}
-      </ul>
+      {!recommendations.length ? (
+        <p>Nenhuma recomendação encontrada.</p>
+      ) : (
+        <ul>
+          {recommendations.map((recommendation, index) => (
+            <li key={index} className="mb-2">
+              {recommendation}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }
-
-export default RecommendationList

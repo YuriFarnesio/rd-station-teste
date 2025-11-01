@@ -1,18 +1,20 @@
-import axios from 'axios'
-import { Product } from '../types'
+import { api } from '@/lib/axios'
 
-const baseURL = 'http://localhost:3001'
+export interface Product {
+  id: number
+  name: string
+  category?: string
+  preferences: string[]
+  features: string[]
+}
 
-export type { Product } from '../types'
-
-const getProducts = async (): Promise<Product[]> => {
+export const getProducts = async (): Promise<Product[]> => {
   try {
-    const response = await axios.get(`${baseURL}/products`)
+    const response = await api.get('/products')
+
     return response.data
   } catch (error) {
-    console.error('Erro ao obter os produtos:', error)
+    console.error('Error fetching products:', error)
     throw error
   }
 }
-
-export default getProducts

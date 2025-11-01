@@ -1,43 +1,37 @@
-import { useState } from 'react'
-import { FeaturesProps } from '../../../types'
-import Checkbox from '../../shared/Checkbox'
+import { Controller, useFormContext } from 'react-hook-form'
 
-interface Props extends FeaturesProps {
-  selectedFeatures?: string[]
-}
+import { useRecommendationsFormContext } from '@/contexts/recommendations-form.context'
+import type { RecommendationsForm } from '@/schemas/recommendations-form.schema'
 
-function Features({ features, selectedFeatures = [], onFeatureChange }: Props) {
-  const [currentFeatures, setCurrentFeatures] =
-    useState<string[]>(selectedFeatures)
+import { CheckboxGroup } from '@/components/shared/CheckboxGroup'
 
-  const handleFeatureChange = (feature: string) => {
-    const updatedFeatures = currentFeatures.includes(feature)
-      ? currentFeatures.filter((pref) => pref !== feature)
-      : [...currentFeatures, feature]
+export function Features() {
+  const { features } = useRecommendationsFormContext()
 
-    setCurrentFeatures(updatedFeatures)
-    onFeatureChange(updatedFeatures)
-  }
+  const { control } = useFormContext<RecommendationsForm>()
+
+  const featureOptions = features.map((feature) => ({
+    label: feature,
+    value: feature,
+  }))
 
   return (
     <div className="mb-4">
       <h2 className="text-lg font-bold mb-2">Funcionalidades:</h2>
       <ul>
-        {features.map((feature, index) => (
-          <li key={index} className="mb-2">
-            <Checkbox
-              value={feature}
-              checked={currentFeatures.includes(feature)}
-              onChange={() => handleFeatureChange(feature)}
-              className="text-green-500"
-            >
-              {feature}
-            </Checkbox>
-          </li>
-        ))}
+        <Controller
+          name="features"
+          control={control}
+          render={({ field: { name, value, onChange } }) => (
+            <CheckboxGroup
+              name={name}
+              value={value}
+              options={featureOptions}
+              onChange={onChange}
+            />
+          )}
+        />
       </ul>
     </div>
   )
 }
-
-export default Features

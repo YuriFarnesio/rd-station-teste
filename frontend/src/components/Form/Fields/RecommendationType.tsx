@@ -1,38 +1,40 @@
-import { RecommendationTypeProps } from '../../../types'
-import Checkbox from '../../shared/Checkbox'
+import { Controller, useFormContext } from 'react-hook-form'
 
-interface Props extends RecommendationTypeProps {
-  onRecommendationTypeChange: (
-    type: 'SingleProduct' | 'MultipleProducts',
-  ) => void
-}
+import type { RecommendationsForm } from '@/schemas/recommendations-form.schema'
 
-function RecommendationType({ onRecommendationTypeChange }: Props) {
+import { RadioGroup } from '@/components/shared/RadioGroup'
+
+const recommendationTypeOptions = [
+  {
+    label: 'Produto Único',
+    value: 'SingleProduct',
+  },
+  {
+    label: 'Múltiplos Produtos',
+    value: 'MultipleProducts',
+  },
+]
+
+export function RecommendationType() {
+  const { control } = useFormContext<RecommendationsForm>()
+
   return (
     <div className="mb-4">
       <h2 className="text-lg font-bold mb-2">Tipo de Recomendação:</h2>
       <div className="flex items-center">
-        <Checkbox
-          type="radio"
+        <Controller
           name="recommendationType"
-          value="SingleProduct"
-          onChange={() => onRecommendationTypeChange('SingleProduct')}
-          className="mr-2"
+          control={control}
+          render={({ field: { name, value, onChange } }) => (
+            <RadioGroup
+              name={name}
+              value={value}
+              options={recommendationTypeOptions}
+              onChange={onChange}
+            />
+          )}
         />
-        <label htmlFor="SingleProduct" className="mr-4">
-          Produto Único
-        </label>
-        <Checkbox
-          type="radio"
-          name="recommendationType"
-          value="MultipleProducts"
-          onChange={() => onRecommendationTypeChange('MultipleProducts')}
-          className="mr-2"
-        />
-        <label htmlFor="MultipleProducts">Múltiplos Produtos</label>
       </div>
     </div>
   )
 }
-
-export default RecommendationType

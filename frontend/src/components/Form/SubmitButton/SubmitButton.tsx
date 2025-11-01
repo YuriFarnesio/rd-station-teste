@@ -1,6 +1,8 @@
-import { SubmitButtonProps } from '../../../types'
+interface SubmitButtonProps {
+  text: string
+}
 
-function SubmitButton({ text }: SubmitButtonProps) {
+export function SubmitButton({ text }: SubmitButtonProps) {
   return (
     <button
       type="submit"
@@ -10,5 +12,3 @@ function SubmitButton({ text }: SubmitButtonProps) {
     </button>
   )
 }
-
-export default SubmitButton
